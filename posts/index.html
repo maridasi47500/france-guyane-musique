@@ -1,0 +1,10 @@
+<%=rendermycss('posts.css')%>
+<p><a href="/">Accueil</a> - <a href="/loisirs/musique">Musique</a></p>
+<h1> Musique </h1>
+<p>c'est de la <%=Cat.find_by(url: @params[:title]).name%></p>
+<div class="containerpost">
+<%=@posts=Post.mypost%>
+<%=render(@posts, '_post.html.erb', 'post')%>
+<%=@myposts=Post.otherpost%>
+<%=render(@myposts, '_otherpost.html.erb', 'post')%>
+</div>

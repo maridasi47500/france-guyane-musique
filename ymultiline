@@ -1,0 +1,9 @@
+p <<-TEXT
+my multi
+line
+TEXT
+p "byebye"
+p "see ou an other time maybe"
+p "xxx"
+p "6 + 66 = ?"
+p 6+66
