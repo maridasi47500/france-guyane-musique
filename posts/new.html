@@ -1,0 +1,16 @@
+<h1>Créer un nouveau post</h1>
+<form action="/posts" method="post">
+  <div class="mb-3">
+    <label for="title" class="form-label">Titre</label>
+    <input name="title" type="text" class="form-control" id="title" aria-describedby="title">
+  </div>
+  <div class="mb-3">
+    <label for="content" class="form-label">Mon post</label>
+    <textarea name="content" class="form-control" id="content"></textarea>
+  </div>
+  <div class="mb-3">
+    <label for="image" class="form-label">image</label>
+    <input name="image" type="file" class="form-control" id="image" aria-describedby="image">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>

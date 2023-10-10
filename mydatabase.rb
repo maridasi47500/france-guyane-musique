@@ -6,11 +6,11 @@ ActiveRecord::Base.establish_connection(
 adapter: 'sqlite3',
 database: 'mydb.db')
 ActiveRecord::Schema.define do
-  create_table :cats,force: true do |t|
+  create_table :cats, if_not_exists: true do |t|
     t.string :name
     t.string :url
   end
-  create_table :posts,force: true do |t|
+  create_table :posts, if_not_exists: true do |t|
     t.integer :cat_id
     t.string :title
     t.string :url
@@ -38,6 +38,6 @@ read_attribute(:content)
 end
 
 end
-x=Cat.create(name: "Musique", url: "musique")
+x=Cat.find_or_create_by(name: "Musique", url: "musique")
 x.posts.create(title: "hi",content:"howare ou?")
 x.posts.create(title: "hello",content:"wats ur name???")
