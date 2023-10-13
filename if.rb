@@ -27,22 +27,61 @@ class Mydirectory < Directory
       eval("@#{as}=rr")
       k=mycontent.count("<%=")
       mycontent=mycontent.split("<%=")
-      cherche=mycontent.select{|h|["if","elsif","else","end"].map{|j|h.strip.squish.index(j) == 0}.select{|l|l}.length > 0}.length > 0
-      while cherche do
-        @if=mycontent.index{|h|h.index("if") == 0}
-        @elsif=mycontent.index{|h|h.index("elsif") == 0}
-        @else=mycontent.index{|h|h.index("else") == 0}
-        @end=mycontent.index{|h|h.index("end") == 0}
-        if @if and @end and  @if < @end
-        if @elsif and @elsif < @end and @else and @else < @end
-          #while
-        elsif @elsif and @elsif < @end
-          #while
-        elsif @else and @else < @end
-          #while #si plus de 1 else
-        end
-        end
-        cherche=mycontent.select{|h|["if","elsif","else","end"].map{|j|h.strip.squish.index(j) == 0}.select{|l|l}.length > 0}.length > 0
+      @ifs=[]
+      tosearch=0
+      while cherche_if and tosearch < mycontent.length do
+      @if={:if=>[],:elsif=>[],:else=>[]}
+      cherche_if=mycontent.index do |h|
+         cond1=h.squish.strip.index("if ") == 0 
+         begin
+         mystr=x.strip.squish
+         cond2=eval(mystr[3..(mystr.index("%>") - 1)])
+         rescue
+         cond2=false
+         end
+         cond1 && cond2
+      end
+      if cherche_if
+      ii=mycontent[cherche_if].index("%>")+2
+      cond=eval(mycontent[cherche_if][3..-3])
+      @if[:if] << {mycontent[cherche_if][ii..-1] => cond}
+      else
+        break
+      end
+      tosearch=cherche_if
+      cherche_elif = 0
+      while cherche_elif == 0 do
+      cherche_elif=mycontent[tosearch..-1].index do |h|
+         cond1=h.squish.strip.index("elsif ") == 0 
+         begin
+         mystr=x.strip.squish
+         cond2=eval(mystr[3..(mystr.index("%>") - 1)])
+         rescue
+         cond2=false
+         end
+         cond1 && cond2
+      end
+      cherche_elif = cherche_elif == 0 ? cherche_elif : nil
+      if cherche_elif
+      ii=mycontent[cherche_elif].index("%>")+2
+      cond=eval(mycontent[cherche_elif][3..-3])
+      @if[:elif] << {mycontent[cherche_elif][ii..-1] => cond}
+      else
+        break
+      end
+      tosearch += cherche_elif == 0 ? 1 : 0
+      end
+      cherche_else=0
+      while cherche_else == 0 do
+      cherche_else=mycontent[tosearch..-1].index do |h|
+         cond1=h.squish.strip == ("else")
+         cond1
+      end
+      cherche_else = cherche_else == 0 ? cherche_else : nil
+      tosearch += cherche_else == 0 ? 1 : 0
+      end
+      tosearch=0
+      @ifs << @if
       end
       mycontent.map! do |h|
         g=h.index("%>")
