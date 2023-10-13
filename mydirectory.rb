@@ -27,23 +27,23 @@ class Mydirectory < Directory
       eval("@#{as}=rr")
       k=mycontent.count("<%=")
       mycontent=mycontent.split("<%=")
-      cherche=mycontent.select{|h|["if","elsif","else","end"].map{|j|h.strip.squish.index(j) == 0}.select{|l|l}.length > 0}.length > 0
-      while cherche do
-        @if=mycontent.index{|h|h.index("if") == 0}
-        @elsif=mycontent.index{|h|h.index("elsif") == 0}
-        @else=mycontent.index{|h|h.index("else") == 0}
-        @end=mycontent.index{|h|h.index("end") == 0}
-        if @if and @end and  @if < @end
-        if @elsif and @elsif < @end and @else and @else < @end
-          #while
-        elsif @elsif and @elsif < @end
-          #while
-        elsif @else and @else < @end
-          #while #si plus de 1 else
-        end
-        end
-        cherche=mycontent.select{|h|["if","elsif","else","end"].map{|j|h.strip.squish.index(j) == 0}.select{|l|l}.length > 0}.length > 0
-      end
+      #cherche=mycontent.select{|h|["if","elsif","else","end"].map{|j|h.strip.squish.index(j) == 0}.select{|l|l}.length > 0}.length > 0
+      #while cherche do
+      #  @if=mycontent.index{|h|h.index("if") == 0}
+      #  @elsif=mycontent.index{|h|h.index("elsif") == 0}
+      #  @else=mycontent.index{|h|h.index("else") == 0}
+      #  @end=mycontent.index{|h|h.index("end") == 0}
+      #  if @if and @end and  @if < @end
+      #  if @elsif and @elsif < @end and @else and @else < @end
+      #    #while
+      #  elsif @elsif and @elsif < @end
+      #    #while
+      #  elsif @else and @else < @end
+      #    #while #si plus de 1 else
+      #  end
+      #  end
+      #  cherche=mycontent.select{|h|["if","elsif","else","end"].map{|j|h.strip.squish.index(j) == 0}.select{|l|l}.length > 0}.length > 0
+      #end
       mycontent.map! do |h|
         g=h.index("%>")
         p g
