@@ -4,7 +4,7 @@ require 'sqlite3'
 #require 'pry'
 ActiveRecord::Base.establish_connection(
 adapter: 'sqlite3',
-database: 'mydb.db')
+database: 'mydb1.db')
 ActiveRecord::Schema.define do
   create_table :cats, if_not_exists: true do |t|
     t.string :name
@@ -14,6 +14,7 @@ ActiveRecord::Schema.define do
     t.integer :cat_id
     t.string :title
     t.string :url
+    t.string :image
     t.text :content
   end
 end
